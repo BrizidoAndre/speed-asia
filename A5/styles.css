@@ -1,0 +1,85 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", sans-serif;
+}
+
+input[type=radio] {
+    display: none;
+}
+
+form {
+    width: clamp(300px, 50%, 400px);
+    border-radius: .5rem;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .4);
+    padding: 2rem;
+    overflow: hidden;
+}
+
+.slide {
+    display: none;
+    animation: slide-in .5s ease-out forwards;
+}
+
+#first:checked ~ form .first,
+#second:checked ~ form .second,
+#third:checked ~ form .third {
+    display: block;
+}
+
+@keyframes slide-in {
+    from {
+        transform: translateX(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+
+.container-input {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+}
+
+input {
+    padding: .5rem;
+    border-radius: .25rem;
+    border-color: lightgray;
+    border-style: solid;
+}
+
+.btn {
+    padding: 8px 16px;
+    border-radius: .25rem;
+    color: white;
+    font-weight: bolder;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background: dodgerblue;
+}
+
+.btn-secondary {
+    background: dimgray;
+}
+
+.third p {
+    margin: 1rem 0;
+}
+
+.container-btns {
+    display: flex;
+    justify-content: space-between;
+}

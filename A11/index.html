@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>File Chart</title>
+    <style>
+        body {
+            display: grid;
+            place-items: center;
+            height: 100vh;
+        }
+
+        .container-bar {
+            width: 400px;
+            aspect-ratio: 1;
+            border: 2px solid black;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            padding: 2rem;
+        }
+
+        .container-bar:hover .first {
+            height: 100%;
+        }
+
+        .container-bar:hover .second {
+            height: 30%;
+        }
+
+        .container-bar:hover .third {
+            height: 60%;
+        }
+
+        .bar {
+            height: 0;
+            width: 50px;
+        }
+
+        .first {
+            background: indianred;
+            transition: .4s 0s;
+        }
+
+        .second {
+            background: lawngreen;
+            transition: .4s .4s;
+        }
+
+        .third {
+            background: cornflowerblue;
+            transition: .4s .8s;
+        }
+    </style>
+</head>
+<body>
+<div class="container-bar">
+    <div class="bar first"></div>
+    <div class="bar second"></div>
+    <div class="bar third"></div>
+</div>
+</body>
+</html>

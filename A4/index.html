@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Circle animation</title>
+    <style>
+        body {
+            background: black;
+        }
+
+        .circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            aspect-ratio: 1;
+            opacity: 0;
+            border: 8px solid white;
+            border-radius: 50%;
+            animation: increase 5s linear infinite;
+        }
+
+        @keyframes increase {
+            from {
+                transform:translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+            20%, 50% {
+                opacity: 1;
+            }
+            to {
+                transform:translate(-50%, -50%) scale(2);
+                opacity: 0;
+            }
+        }
+
+        .circle-1 {
+            animation-delay: 0s;
+        }
+
+        .circle-2 {
+            animation-delay: .5s;
+        }
+
+        .circle-3 {
+            animation-delay: 1s;
+        }
+
+        .circle-4 {
+            animation-delay: 1.5s;
+        }
+
+        .circle-5 {
+            animation-delay: 2s;
+        }
+    </style>
+</head>
+<body>
+<div class="circle circle-1"></div>
+<div class="circle circle-2"></div>
+<div class="circle circle-3"></div>
+<div class="circle circle-4"></div>
+<div class="circle circle-5"></div>
+</body>
+</html>

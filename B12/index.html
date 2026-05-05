@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Drawing Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #canvas {
+            border: 3px solid black;
+        }
+
+        .btn {
+            aspect-ratio: 1;
+            width: 30px;
+            height: 30px;
+            border: none;
+        }
+
+        .btn-black {
+            background: black;
+        }
+
+        .btn-red {
+            background: red;
+        }
+
+        .btn-yellow {
+            background: yellow;
+        }
+
+        .btn-green {
+            background: green;
+        }
+
+        .btn-blue {
+            background: blue;
+        }
+
+        .container-canvas {
+            width: 300px;
+            height: 300px;
+            resize: both;
+            overflow: hidden;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+<div class="container-canvas">
+    <canvas id="canvas" width="300" height="300">
+
+    </canvas>
+</div>
+<button id="black" class="btn btn-black"></button>
+<button id="red" class="btn btn-red"></button>
+<button id="yellow" class="btn btn-yellow"></button>
+<button id="green" class="btn btn-green"></button>
+<button id="blue" class="btn btn-blue"></button>
+<button id="jpg">Save to jpg</button>
+<button id="png">Save to png</button>
+<script>
+    const canvas = document.getElementById('canvas');
+    const containerCanvas = document.querySelector('.container-canvas');
+    const observer = new ResizeObserver(entries => {
+        const {contentRect} = entries[0];
+        canvas.width = contentRect.width;
+        canvas.height = contentRect.height;
+    })
+    observer.observe(containerCanvas);
+    canvas.width = 300;
+    canvas.height = 300;
+    const ctx = canvas.getContext('2d');
+    black.addEventListener('click', (ev) => {
+        ctx.strokeStyle = 'black';
+    })
+    red.addEventListener('click', (ev) => {
+        ctx.strokeStyle = 'red';
+    })
+    yellow.addEventListener('click', (ev) => {
+        ctx.strokeStyle = 'yellow';
+    })
+    green.addEventListener('click', (ev) => {
+        ctx.strokeStyle = 'green';
+    })
+    blue.addEventListener('click', (ev) => {
+        ctx.strokeStyle = 'blue';
+    })
+
+    let isDrawing = false;
+    canvas.addEventListener('mousedown', () => {
+        isDrawing = true;
+        ctx.beginPath();
+    })
+    canvas.addEventListener('mousemove', (ev) => {
+        if (isDrawing) {
+            ctx.lineTo(ev.x, ev.y);
+            ctx.stroke();
+        }
+    })
+    canvas.addEventListener('mouseup', () => {
+        isDrawing = false;
+    })
+    jpg.addEventListener('click', (ev) => {
+        const url = canvas.toDataURL('image/jpeg');
+        const linkTag = document.createElement('a');
+        linkTag.href = url;
+        linkTag.download = true;
+        linkTag.click();
+    })
+    png.addEventListener('click', (ev) => {
+        const url = canvas.toDataURL('image/png');
+        const linkTag = document.createElement('a');
+        linkTag.href = url;
+        linkTag.download = true;
+        linkTag.click();
+    })
+</script>
+</body>
+</html>

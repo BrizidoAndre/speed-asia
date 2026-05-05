@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Word Split Shuffle</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f1f1f1;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        .container {
+            width: clamp(300px, 80%, 500px);
+            margin: 200px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input {
+            padding: .5rem;
+        }
+
+        .btn-primary {
+            background: dodgerblue;
+            -webkit-border-radius: .5rem;
+            -moz-border-radius: .5rem;
+            border-radius: .5rem;
+            padding: 10px 30px;
+            color: white;
+            font-weight: bolder;
+            border: none;
+            cursor: pointer;
+        }
+
+        .container-letters {
+            margin: 50px auto;
+            display: flex;
+            gap: .5rem;
+        }
+
+        .word {
+            width: 40px;
+            aspect-ratio: 1;
+            box-shadow: 0 0 3px 0 rgba(0, 0, 0, .5);
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            -webkit-border-radius: .25rem;
+            -moz-border-radius: .25rem;
+            border-radius: .25rem;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <input type="text" placeholder="type a word" id="text">
+    <div class="container-letters">
+    </div>
+    <button class="btn-primary" id="shuffle">Shuffle Letters</button>
+</div>
+<script>
+    const containerLetters = document.querySelector('.container-letters')
+    text.addEventListener('input', (ev) => {
+        containerLetters.innerHTML = '';
+        text.value.split('').forEach(letter => {
+            const letterTag = document.createElement('p');
+            letterTag.textContent = letter;
+            letterTag.classList.add('word');
+            containerLetters.appendChild(letterTag);
+        })
+    })
+
+    shuffle.addEventListener('click', (ev) => {
+        containerLetters.innerHTML = '';
+        let letters = text.value.split('');
+        letters.sort((a, b) => Math.random() - .5);
+        letters.forEach(letter => {
+            const letterTag = document.createElement('p');
+            letterTag.textContent = letter;
+            letterTag.classList.add('word');
+            containerLetters.appendChild(letterTag);
+        })
+    })
+</script>
+</body>
+</html>

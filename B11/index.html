@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Image Carousel</title>
+    <style>
+        :root {
+            color-scheme: light dark;
+        }
+
+        html {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        * {
+            user-select: none;
+        }
+
+        h1 {
+        }
+
+        p {
+            opacity: .8;
+        }
+
+        .circle-container, .ball, .circle-container-images {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .circle-container {
+            position: relative;
+            left: 50%;
+            top: 50%;
+        }
+
+        :root {
+            --ball-radius: 200px;
+            --image-size: 50px;
+            --image-count: 11;
+        }
+
+        .ball {
+            position: absolute;
+            width: calc(var(--ball-radius) * 2);
+            aspect-ratio: 1;
+            flex-direction: column;
+            gap: .5rem;
+            border-radius: 50%;
+        }
+
+        .circle-container-images {
+            width: calc(var(--ball-radius) * 2);
+            aspect-ratio: 1;
+            position: absolute;
+        }
+
+        .image-carousel {
+            width: var(--image-size);
+            aspect-ratio: 1;
+            position: absolute;
+            bottom: calc(var(--ball-radius));
+            top: calc(-1 * var(--image-size));
+            transform-origin: 50% calc(var(--image-size) + var(--ball-radius));
+            rotate: calc(var(--i) * 360deg / var(--image-count));
+        }
+    </style>
+</head>
+<body>
+<main class="circle-container">
+    <div class="ball">
+        <h1>RING</h1>
+        <p>Just drag and scroll</p>
+    </div>
+    <div class="circle-container-images" id="circle-images">
+        <img style="--i:0" src="images/all-attractions-low-res.jpg" alt="Carousel image slider"
+             class="image-carousel">
+        <img style="--i:1" src="images/attraction-a-low-res.jpg" alt="Carousel image slider" class="image-carousel">
+        <img style="--i:2" src="images/attraction-b-low-res.jpg" alt="Carousel image slider" class="image-carousel">
+        <img style="--i:3" src="images/attraction-c-low-res.jpg" alt="Carousel image slider" class="image-carousel">
+        <img style="--i:4" src="images/cover-low-res.jpg" alt="Carousel image slider" class="image-carousel">
+        <img style="--i:5" src="images/fda-p-low-res.jpg" alt="Carousel image slider" class="image-carousel">
+        <img style="--i:6" src="images/journees_portes_ouvertes_entreprises_2023_p-low-res.jpg"
+             alt="Carousel image slider"
+             class="image-carousel">
+        <img style="--i:7" src="images/lyon-kayak-p-0-low-res.jpg" alt="Carousel image slider" class="image-carousel">
+        <img style="--i:8" src="images/semaine-bleue-2024-p-low-res.jpg" alt="Carousel image slider"
+             class="image-carousel">
+        <img style="--i:9" src="images/village-des-metiers-p-low-res.jpg" alt="Carousel image slider"
+             class="image-carousel">
+        <img style="--i:10" src="images/worldskills-2024-p-low-res.png" alt="Carousel image slider"
+             class="image-carousel">
+    </div>
+</main>
+<script>
+    const circleImage = document.getElementById('circle-images');
+    let velocity;
+    let friction = .95;
+    let currentRotation = 0;
+    let lastRotation = 0;
+    let isPressed = false
+    let lastDragX, lastDragY;
+
+
+    function animate() {
+        if (!isPressed) {
+            if (Math.abs(velocity) > 0.01) {
+                velocity *= friction;
+                currentRotation += velocity;
+                circleImage.style.rotate = `${currentRotation}deg`
+            } else {
+                velocity = 0; // if velocity is too small, set velocity to zero
+            }
+        }
+        requestAnimationFrame(animate)
+    }
+
+    window.addEventListener('mousedown', (ev) => {
+        isPressed = true;
+        lastDragX = ev.x;
+        lastDragY = ev.y;
+        lastRotation = currentRotation;
+        velocity = 0;
+    })
+    window.addEventListener('mouseup', () => {
+        isPressed = false;
+    })
+
+    window.addEventListener('mousemove', (ev) => {
+        if (isPressed) {
+            const difX = ev.x - lastDragX;
+            const difY = ev.y - lastDragY;
+            const absolute = difY + difX;
+            const newRotate = lastRotation + absolute * .4;
+            velocity = newRotate - currentRotation;
+            currentRotation = newRotate;
+            circleImage.style.rotate = `${currentRotation}deg`
+        }
+    })
+
+    // starting the animation
+    animate()
+</script>
+</body>
+</html>

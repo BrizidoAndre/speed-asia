@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Multiple Counters</title>
+    <link rel="stylesheet" href="../bootstrap.min.css">
+</head>
+<body>
+<main class="container py-5">
+    <button class="btn btn-success mb-2" id="add-counter">Add a counter</button>
+    <div class="row d-flex gap-2">
+    </div>
+</main>
+<script>
+    const counterElement = `
+        <div class="col col-3 border p-2">
+            <h2 class="counter text-center display-1">0</h2>
+            <div class="d-flex justify-content-around">
+                <button class="btn btn-danger">Decrease</button>
+                <button class="btn btn-primary">Increase</button>
+            </div>
+        </div>`
+    const btnCounter = document.getElementById('add-counter');
+    const rowElement = document.querySelector('.row');
+    btnCounter.addEventListener('click', insert)
+
+    function insert() {
+        rowElement.insertAdjacentHTML('beforeend', counterElement);
+    }
+
+    rowElement.addEventListener('click', (ev) => {
+        const target = ev.target;
+        if (target.tagName === 'BUTTON') {
+            const counterElement = target.parentElement.parentElement.querySelector('h2');
+            let value = parseInt(counterElement.textContent);
+            value += target.classList.contains('btn-primary') ? 1 : -1;
+            counterElement.textContent = value;
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles.css">
+    <title>Multi-step form</title>
+</head>
+<body>
+<input type="radio" name="slide" id="first" checked>
+<input type="radio" name="slide" id="second">
+<input type="radio" name="slide" id="third">
+<form action="">
+    <div class="slide first">
+        <h1>Personal Information</h1>
+        <div class="container-input">
+            <label for="name">Name</label>
+            <input type="text" id="name">
+        </div>
+        <div class="container-input">
+            <label for="email">Email:</label>
+            <input type="text" id="email">
+        </div>
+        <label for="second" class="btn btn-primary">Next</label>
+    </div>
+    <div class="slide second">
+        <h2>Address</h2>
+        <div class="container-input">
+            <label for="street">Street</label>
+            <input type="text" id="street">
+        </div>
+        <div class="container-input">
+            <label for="city">City:</label>
+            <input type="text" id="city">
+        </div>
+        <div class="container-btns">
+            <label for="first" class="btn btn-secondary">Back</label>
+            <label for="third" class="btn btn-primary">Next</label>
+        </div>
+    </div>
+    <div class="slide third">
+        <h2>Confirm</h2>
+        <p>Please confirm your details before submiting.</p>
+        <div class="container-btns">
+            <label for="second" class="btn btn-secondary">Back</label>
+            <button class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

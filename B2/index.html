@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSS Inspector</title>
+    <link rel="stylesheet" href="../bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="container">
+    <h1>CSS Inspector</h1>
+    <p>Click any element to see its styles in tooltip</p>
+    <div class="m-3 bg-primary-subtle rounded-2 card p-3 d-block w-25">
+        Sample Box
+    </div>
+    <button class="btn">Button</button>
+    <ul>
+        <li>List item 1</li>
+        <li>List item 2</li>
+    </ul>
+</main>
+<div class="tooltip-css d-none">
+    <ul class="list-unstyled" id="tooltip-list">
+
+    </ul>
+</div>
+<script>
+    const list = document.getElementById('tooltip-list');
+    let isClicked = false;
+    const tolltip = document.querySelector('.tooltip-css');
+    const elements = document.querySelectorAll('*');
+    const properties = [
+        'color',
+        'background-color',
+        'font-size',
+        'width',
+        'height',
+        'margin',
+        'padding'
+    ];
+    elements.forEach(element => {
+        element.addEventListener('mouseleave', (ev) => {
+            console.log('leave');
+            tolltip.classList.add('d-none');
+        })
+    })
+    window.addEventListener('click', (ev) => {
+        const css = window.getComputedStyle(ev.target);
+        tolltip.classList.remove('d-none');
+        tolltip.style.top = ev.y + 30 + 'px';
+        tolltip.style.left = ev.x + 30 + 'px';
+        let htmlProperties = '';
+        properties.forEach(property => {
+            htmlProperties += `<li><strong class="blue">${property}:</strong>${css.getPropertyValue(property)}</li>`
+        })
+        list.innerHTML = htmlProperties;
+    })
+</script>
+</body>
+</html>

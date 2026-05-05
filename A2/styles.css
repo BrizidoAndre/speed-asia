@@ -1,0 +1,35 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    place-items: center;
+}
+
+#title {
+    display: flex;
+    align-items: center;
+}
+
+span {
+    display: block;
+    animation: waveMotion 2s infinite ease-in-out alternate var(--delay);
+}
+
+@keyframes waveMotion {
+    from {
+        transform: translateY(-5px);
+    }
+    to {
+        transform: translateY(5px);
+    }
+}
+
+.space {
+    width: 10px;
+}

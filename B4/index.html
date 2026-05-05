@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lightning</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<canvas id="canvas">
+
+</canvas>
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let bgId;
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+
+    function paintBg(color) {
+        ctx.fillStyle = color;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    paintBg('black');
+
+    const colors = [
+        'white',
+        '#fafafa',
+        '#F9F9F9',
+        '#a4a4a4',
+        '#A1A1A1',
+    ];
+
+    window.addEventListener('click', () => {
+        ctx.beginPath();
+        clearInterval(bgId);
+        paintBg('#828382');
+        let lightningCount = getRandomIntInclusive(2, 5);
+        let xCurrent = getRandomIntInclusive(200, 900);
+        for (let i = 0; i < lightningCount; i++) {
+            randomLightning(xCurrent);
+        }
+        bgId = setTimeout(() => {
+            ctx.closePath();
+            paintBg('black');
+        }, 100)
+    })
+
+    function randomLightning(xCurrent) {
+        const maxWidth = 6;
+        const minWidth = 2;
+        const color = colors[getRandomIntInclusive(0, colors.length - 1)];
+        const lineWidth = getRandomIntInclusive(minWidth, maxWidth);
+        createLine(color, lineWidth, xCurrent)
+    }
+
+    function getRandomIntInclusive(min, max) {
+        const minCeiled = Math.ceil(min);
+        const maxFloored = Math.floor(max);
+        return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
+    }
+
+    function createLine(lineColor, lineWidth, currentX = getRandomIntInclusive(200, 900)) {
+        ctx.strokeStyle = lineColor;
+        ctx.lineWidth = lineWidth;
+        let currentY = 0;
+        ctx.moveTo(currentX, currentY);
+        const points = getRandomIntInclusive(20, 40);
+        for (let i = 0; i < points; i++) {
+            currentX += getRandomIntInclusive(-20, 20);
+            currentY += getRandomIntInclusive(20, 40);
+            ctx.lineTo(currentX, currentY);
+        }
+        ctx.stroke();
+    }
+</script>
+</body>
+</html>

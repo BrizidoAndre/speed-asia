@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Image Compare</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div>
+    <input type="image" src="assets/splitter.svg" id="splitter" draggable="false">
+    <img class="image image-after" src="assets/after.jpg">
+    <img class="image image-before" src="assets/before.jpg">
+</div>
+<script>
+    const after = document.querySelector('.image-after');
+    const before = document.querySelector('.image-before');
+    const input = document.querySelector('input');
+    const container = document.querySelector('div');
+    let isMoving = false;
+    container.addEventListener('mousedown', () => {
+        isMoving = true;
+    })
+    container.addEventListener('mouseup', () => {
+        isMoving = false;
+    })
+    container.addEventListener('mousemove', (ev) => {
+        if (isMoving) {
+            input.style.left = ev.x + 'px'
+            before.style.width = ev.x + 'px';
+        }
+    })
+    container.addEventListener('click', (ev) => {
+        input.style.left = ev.x + 'px'
+        before.style.width = ev.x + 'px';
+    })
+</script>
+</body>
+</html>
+

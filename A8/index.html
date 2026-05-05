@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sun</title>
+    <style>
+        :root {
+            /* this has to be set to switch between light or dark */
+            color-scheme: light dark;
+        }
+
+        .container-sun {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .sun {
+            position: relative;
+            animation: rotate 3s infinite linear;
+            animation-play-state: paused;
+        }
+
+        @keyframes rotate {
+            to {
+                rotate: 360deg;
+            }
+        }
+
+        :root {
+            --ball-radius: 80px;
+            --wing-width: 80px;
+            --wing-gap: var(--ball-radius);
+        }
+
+        .ball {
+            position: absolute;
+            width: calc(var(--ball-radius) * 2);
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: white;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            border: 8px solid black;
+        }
+
+        .wing {
+            aspect-ratio: 2/1;
+            clip-path: polygon(0 50%, 100% 0, 100% 100%);
+            background: var(--color);
+            position: absolute;
+            rotate: calc(30deg * var(--i));
+            top: calc(-1 * var(--wing-width) / 4);
+            width: var(--wing-width);
+            left: calc(-1 * (var(--wing-width) + var(--ball-radius)));
+            transform-origin: calc(var(--wing-width) + var(--ball-radius)) 50%;
+        }
+    </style>
+</head>
+<body>
+<main class="container-sun">
+    <div class="sun" id="sun" style="rotate:0deg">
+        <div class="ball"></div>
+        <div style="--i:1; --color:red" class="wing wind-1"></div>
+        <div style="--i:2; --color:blue" class="wing wind-2"></div>
+        <div style="--i:3; --color:green" class="wing wind-3"></div>
+        <div style="--i:4; --color:yellow" class="wing wind-4"></div>
+        <div style="--i:5; --color:orange" class="wing wind-5"></div>
+        <div style="--i:6; --color:pink" class="wing wind-6"></div>
+        <div style="--i:7; --color:purple" class="wing wind-7"></div>
+        <div style="--i:8; --color:skyblue" class="wing wind-8"></div>
+        <div style="--i:9; --color:brown" class="wing wind-9"></div>
+        <div style="--i:10; --color:coral" class="wing wind-10"></div>
+        <div style="--i:11; --color:teal" class="wing wind-11"></div>
+        <div style="--i:12; --color:rebeccapurple" class="wing wind-12"></div>
+    </div>
+</main>
+<script>
+    let ballRadius = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--ball-radius'))
+    const sun = document.getElementById('sun');
+    let dragStartX = null;
+    let dragStartY = null;
+    let currentRotate = 0;
+    let dragStartRotate = 0;
+    let isPressed = false;
+
+    // inertia variables
+    let velocity = 0;
+    const friction = .95;
+
+    function animate() {
+        if (!isPressed) {
+            if (Math.abs(velocity) > .01) {
+                velocity *= friction;
+                currentRotate += velocity;
+                sun.style.rotate = currentRotate + 'deg';
+            } else {
+                velocity = 0; // Snap to zero when very slow
+            }
+        }
+        requestAnimationFrame(animate);
+    }
+
+    // Start the animation loop
+    animate();
+
+    window.addEventListener('wheel', (ev) => {
+        const scrollAdd = 2;
+        velocity += ev.deltaY > 0 ? scrollAdd : -scrollAdd;
+    })
+
+    window.addEventListener('mousedown', (ev) => {
+        isPressed = true;
+        dragStartX = ev.x;
+        dragStartY = ev.y;
+        dragStartRotate = currentRotate;
+        velocity = 0;
+    })
+
+    window.addEventListener('mousemove', ev => {
+        if (isPressed) {
+            const difX = ev.x - dragStartX;
+            const difY = ev.y - dragStartY;
+            const totalDif = (difX + difY) * .2;
+
+            const newRotate = dragStartRotate + totalDif;
+
+            velocity = newRotate - currentRotate;
+            currentRotate = newRotate;
+
+            sun.style.rotate = currentRotate + 'deg';
+        }
+    })
+
+    window.addEventListener('mouseup', () => {
+        isPressed = false;
+    })
+</script>
+</body>
+</html>

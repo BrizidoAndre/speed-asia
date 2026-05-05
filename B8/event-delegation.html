@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dynamic Notebook</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: clamp(300px, 80%, 500px);
+            margin: 200px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        textarea {
+            border: 2px solid gray;
+            resize: none;
+            border-radius: .5rem;
+            padding: .5rem;
+        }
+
+        textarea:hover, textarea:focus {
+            border-color: dodgerblue;
+            outline-color: dodgerblue;
+        }
+    </style>
+</head>
+<body>
+<main class="container">
+    <textarea name="" rows="2" placeholder="Start typing..."></textarea>
+</main>
+<script>
+    const textAreaText = `<textarea name="" rows="2" placeholder="Start typing..."></textarea>`;
+    const main = document.querySelector('main');
+    window.addEventListener('keydown', (ev) => {
+        let {key, shiftKey} = ev;
+        if (key === 'Enter') {
+            if (shiftKey) {
+                ev.target.rows = parseInt(ev.target.rows) + 1;
+            } else {
+                ev.preventDefault();
+                main.insertAdjacentHTML('beforeend', textAreaText);
+                main.children[main.children.length - 1].focus();
+            }
+        }
+        if (key === 'Backspace') {
+            if (main.children.length > 1 && ev.target.value === '') {
+                ev.target.previousSibling.focus();
+                ev.target.remove();
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Infinite Scroll</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background: #f4f4f4;
+        }
+
+        .container {
+            width: clamp(300px, 80%, 400px);
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin: 3rem auto;
+            text-align: center;
+        }
+
+        .quote {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+            border-radius: .5rem;
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, .3);
+            background: white;
+            margin: 2rem 0;
+        }
+
+        .content {
+            text-align: start;
+            margin-right: auto;
+
+        }
+
+        .author {
+            margin-left: auto;
+        }
+
+        #load {
+            margin: 2rem auto;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Infinite Quotes</h1>
+    <div class="container-quotes">
+    </div>
+    <p class="loader" id="load">Loading more quotes...</p>
+</div>
+<script>
+    let quotes;
+    let quotesIndex = 0;
+    const containerQuotes = document.querySelector('.container-quotes')
+    const loadMore = document.getElementById('load');
+
+    const observer = new IntersectionObserver(function (entries, observer) {
+        if (entries[0].isIntersecting) {
+            renderQuotes(quotes.slice(quotesIndex, quotesIndex + 10))
+            if (quotesIndex + 10 > quotes.length) {
+                loadMore.innerHTML = 'No more quotes available';
+                observer.unobserve(entries[0])
+            }
+        }
+    }, {
+        threshold: 1
+    })
+
+    observer.observe(loadMore);
+
+    async function getQuotes() {
+        const res = await fetch('http://172.16.21.43/BR_module_a_asia/B1/quotes.json');
+        quotes = await res.json();
+        renderQuotes(quotes.slice(quotesIndex, quotesIndex + 10))
+    }
+
+    function renderQuotes(quotes) {
+        quotes.forEach(quote => {
+            containerQuotes.innerHTML += `
+        <div class="quote">
+            <p class="content">${quote.text}</p>
+            <p class="author">-${quote.author}</p>
+        </div>`
+        })
+        quotesIndex += 10;
+    }
+
+    getQuotes()
+</script>
+</body>
+</html>

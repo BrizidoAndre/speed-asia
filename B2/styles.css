@@ -1,0 +1,47 @@
+*:hover {
+    outline: 2px solid dodgerblue;
+}
+
+*:has(>*:hover) {
+    outline: none;
+}
+
+.btn {
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 128, 0);
+    font-size: 13.3333px;
+    width: 78.5391px;
+    height: 35.5px;
+    margin: 10px;
+    padding: 10px 20px;
+}
+
+.box {
+    color: rgb(0, 0, 0);
+    background: rgb(173, 216, 230);
+    font-size: 16px;
+    width: 200px;
+    height: 100px;
+    margin: 10px;
+    padding: 15px;
+}
+
+.tooltip-css {
+    position: fixed;
+    padding: 1rem;
+    width: 250px;
+    height: 200px;
+    aspect-ratio: 1;
+    background: rgb(44, 44, 44);
+    color: white;
+    border-radius: .5rem;
+}
+
+.blue {
+    color: cornflowerblue;
+    margin-right: .25rem;
+}
+
+#tooltip-list {
+    font-size: .75rem;
+}

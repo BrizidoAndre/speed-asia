@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Droplets</title>
+    <style>
+        :root {
+            --height: 100px;
+            --left: 0px;
+            --delay: 1s;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .drop {
+            position: absolute;
+            left: var(--left);
+            top: 0;
+            width: 2px;
+            background: #000;
+            height: var(--height);
+            animation: drop infinite .5s linear var(--delay);
+            transform: translateY(-100%);
+        }
+
+        @keyframes drop {
+            from {
+                top: 0;
+                transform: translateY(-100%);
+            }
+            to {
+                top: 100%;
+                transform: translateY(100%);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="drop" style="--delay: .4s;--left: 1%; --height: 20px"></div>
+<div class="drop" style="--delay: 1s;--left: 90%; --height: 20px"></div>
+<div class="drop" style="--delay: 2s;--left: 23%; --height: 172px"></div>
+<div class="drop" style="--delay: .8s;--left: 12%; --height: 200px"></div>
+<div class="drop" style="--delay: .1s;--left: 10%; --height: 120px"></div>
+<div class="drop" style="--delay: .9s;--left: 18%; --height: 130px"></div>
+<div class="drop" style="--delay: 1.4s;--left: 67%; --height: 80px"></div>
+<div class="drop" style="--delay: 2.3s;--left: 81%; --height: 10px"></div>
+<div class="drop" style="--delay: 1.3s;--left: 71%; --height: 90px"></div>
+<div class="drop" style="--delay: .7s;--left: 69%; --height: 199px"></div>
+<div class="drop" style="--delay: .1s;--left: 43%; --height: 110px"></div>
+<div class="drop" style="--delay: 2.3s;--left: 52%; --height: 170px"></div>
+<div class="drop" style="--delay: 6.7s;--left: 67%; --height: 150px"></div>
+<div class="drop" style="--delay: 2.4s;--left: 81%; --height: 30px"></div>
+<div class="drop" style="--delay: 3.4s;--left: 23%; --height: 50px"></div>
+<div class="drop" style="--delay: .9s;--left: 55%; --height: 70px"></div>
+<div class="drop" style="--delay: .2s;--left: 61%; --height: 80px"></div>
+<div class="drop" style="--delay: .4s;--left: 71%; --height: 20px"></div>
+<div class="drop" style="--delay: .5s;--left: 22%; --height: 10px"></div>
+<div class="drop" style="--delay: .4s;--left: 33%; --height: 20px"></div>
+<div class="drop" style="--delay: .3s;--left: 55%; --height: 30px"></div>
+<div class="drop" style="--delay: 1.4s;--left: 14%; --height: 180px"></div>
+<div class="drop" style="--delay: .1s;--left: 4%; --height: 170px"></div>
+<div class="drop" style="--delay: 2.4s;--left: 81%; --height: 200px"></div>
+<div class="drop" style="--delay: 3.4s;--left: 56%; --height: 190px"></div>
+<div class="drop" style="--delay: 2s;--left: 12%; --height: 160px"></div>
+</body>
+</html>
